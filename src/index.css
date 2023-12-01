@@ -1,0 +1,152 @@
+:root {
+  --clr-primary-400: #fc4747;
+
+  --clr-neutral-900: #10141e;
+  --clr-neutral-600: #161d2f;
+  --clr-neutral-400: #5a698f;
+  --clr-neutral-100: #ffffff;
+
+  --ff-outfit: "Outfit", sans-serif;
+  --ff-base: var(--ff-outfit);
+
+  --fs-900: 2rem;
+  --fs-700: 1.5rem;
+  --fs-600: 1.125rem;
+  --fs-400: 1rem;
+  --fs-300: 0.8125rem;
+
+  --size-700: 2.5rem;
+  --size-600: 2rem;
+  --size-500: 1.5rem;
+  --size-400: 1rem;
+  --size-200: 0.5rem;
+
+  --fw-regular: 300;
+  --fw-semibold: 500;
+  --fw-bold: 700;
+}
+
+.clr-primary {
+  color: var(--clr-primary-400);
+}
+
+.naked {
+  border: none;
+  outline: transparent;
+  background-color: transparent;
+}
+
+.btn {
+  background-color: var(--clr-primary-400);
+  color: var(--clr-neutral-100);
+  padding-block: var(--size-200);
+  border-radius: 6px;
+
+  &:hover {
+    background-color: var(--clr-neutral-100);
+    color: var(--clr-neutral-900);
+  }
+}
+
+.headingS,
+.headingXS {
+  font-weight: var(--fw-semibold);
+}
+
+.headingL {
+  font-size: var(--fs-900);
+  font-weight: var(--fw-regular);
+}
+
+.headingM {
+  font-size: var(--fs-700);
+}
+
+.headingS {
+  font-size: var(--fs-700);
+}
+
+.headingXS {
+  font-size: var(--fs-600);
+}
+
+/*navigation*/
+nav {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  padding: 2rem;
+}
+
+nav ul {
+  display: flex;
+  align-items: center;
+  gap: 5rem;
+  list-style-type: none;
+}
+
+.primary-nav a.active {
+  color: rgb(0, 132, 255);
+  font-weight: bold;
+}
+
+/*login*/
+
+.login {
+  > * {
+    margin-inline: auto;
+    margin-block: auto;
+  }
+
+  & img {
+    margin-block: 4.5rem;
+    margin-inline: auto;
+  }
+
+  & input {
+    padding-block: var(--size-200);
+    border-bottom: 1px solid var(--clr-neutral-100);
+  }
+
+  & button {
+    margin-top: var(--size-600);
+  }
+}
+
+.login-form {
+  display: grid;
+  border-radius: 20px;
+  background-color: #f0e6e6aa;
+  max-width: 400px;
+  padding: var(--size-600);
+}
+
+.form-text {
+  text-align: center;
+}
+
+/*loan-form*/
+
+form {
+  > * {
+    padding: 1rem;
+  }
+}
+
+.loan-details {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 300px;
+  text-align: left;
+}
+
+.detail-label {
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.detail-value {
+  margin-bottom: 15px;
+}
