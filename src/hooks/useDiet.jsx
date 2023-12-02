@@ -15,11 +15,6 @@ const useDiet = () => {
     fetchDietRecommendation();
   }, [token, username]);
 
-  // useEffect(() => {
-  //   fetchData();
-  //   fetchDietRecommendation();
-  // }, []);
-
   const fetchData = async () => {
     const headers = {
       Authorization: `Bearer ${token}`,
@@ -40,6 +35,23 @@ const useDiet = () => {
   };
 
   const postData = async (url, formData) => {
+    const headers = {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    };
+    console.log(formData);
+    try {
+      const response = await axios.post(url, formData, { headers });
+      console.log("Form submitted successfully:", response.data);
+
+      return { success: true, data: response.data };
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      return { success: false, error };
+    }
+  };
+
+  const postCalorie = async (url,formData) => {
     const headers = {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
@@ -117,6 +129,7 @@ const useDiet = () => {
     token,
     username,
     postData,
+    postCalorie,
     fetchData,
     fetchDietRecommendation,
     deleteData,

@@ -9,13 +9,13 @@ const useContent = () => {
   const [data, setData] = useState("temp");
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetchData();
-  }, [token, username]);
-
   // useEffect(() => {
   //   fetchData();
-  // }, []);
+  // }, [token, username]);
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const fetchData = async () => {
     const headers = {
@@ -100,7 +100,6 @@ const useContent = () => {
 
     try {
       const response = await axios.post(url, loanData, { headers });
-      console.log("Loan recommendation submitted successfully:", response.data);
       return { success: true, data: response.data };
     } catch (error) {
       console.error("Error submitting loan recommendation:", error);

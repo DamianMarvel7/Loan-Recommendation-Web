@@ -17,6 +17,7 @@ import config from "../../config";
 import DietProfile from "../components/DietProfile";
 import DietUserForm from "../components/DietUserForm";
 import useDiet from "../hooks/useDiet";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function generateUniqueId() {
   // Generate a unique ID using the current timestamp and a random number
@@ -30,6 +31,8 @@ function generateUniqueId() {
 }
 
 const Diet = () => {
+  const { user } = useAuthContext();
+
   const { data, username, postData, fetchData, updateData, deleteData, error } =
     useDiet();
   const { username: usernameP } = useContent();
@@ -86,65 +89,71 @@ const Diet = () => {
 
   return (
     <>
-      <main className="content">
-        <p className="headingM">Welcome {usernameP}</p>
+      {user ? (
+        <main className="content">
+          <p className="headingM">Welcome {usernameP}</p>
 
-        {data && (
+          {data && (
+            <>
+              {data["user_id"] ? (
+                <>
+                  <DietProfile data={data} />
+                  <Button
+                    colorScheme="blue"
+                    margin="4"
+                    width="5rem"
+                    onClick={onOpen}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    colorScheme="blue"
+                    width="5rem"
+                    margin="4"
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </Button>
+                </>
+              ) : (
+                <div>
+                  <h1 className="headingL">Form</h1>
+                  <DietUserForm
+                    formData={formData}
+                    handleInputChange={handleInputChange}
+                    handleSubmit={handleSubmit}
+                    isUpdate={false}
+                  />
+                </div>
+              )}
+            </>
+          )}
           <>
-            {data["user_id"] ? (
-              <>
-                <DietProfile data={data} />
-                <Button
-                  colorScheme="blue"
-                  margin="4"
-                  width="5rem"
-                  onClick={onOpen}
-                >
-                  Edit
-                </Button>
-                <Button
-                  colorScheme="blue"
-                  width="5rem"
-                  margin="4"
-                  onClick={handleDelete}
-                >
-                  Delete
-                </Button>
-              </>
-            ) : (
-              <div>
-                <h1 className="headingL">Form</h1>
-                <DietUserForm
-                  formData={formData}
-                  handleInputChange={handleInputChange}
-                  handleSubmit={handleSubmit}
-                  isUpdate={false}
-                />
-              </div>
-            )}
-          </>
-        )}
-        <>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Edit Data</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <DietUserForm
-                  formData={formData}
-                  handleInputChange={handleInputChange}
-                  handleSubmit={handleSubmit}
-                  isUpdate={true}
-                  onClose={onClose}
-                />
-              </ModalBody>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Edit Data</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <DietUserForm
+                    formData={formData}
+                    handleInputChange={handleInputChange}
+                    handleSubmit={handleSubmit}
+                    isUpdate={true}
+                    onClose={onClose}
+                  />
+                </ModalBody>
 
-              <ModalFooter></ModalFooter>
-            </ModalContent>
-          </Modal>
+                <ModalFooter></ModalFooter>
+              </ModalContent>
+            </Modal>
+          </>
+        </main>
+      ) : (
+        <>
+          <h1 className="headingL">Please Login First</h1>
         </>
-      </main>
+      )}
     </>
   );
 };

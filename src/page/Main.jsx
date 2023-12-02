@@ -30,6 +30,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import config from "../../config";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 function generateUniqueId() {
   // Generate a unique ID using the current timestamp and a random number
@@ -43,6 +44,8 @@ function generateUniqueId() {
 }
 
 const Content = () => {
+  const { user } = useAuthContext();
+
   const { data, username, postData, fetchData, updateData, deleteData, error } =
     useContent();
 
@@ -102,65 +105,69 @@ const Content = () => {
 
   return (
     <>
-      <main className="content">
-        {data && (
+      {user ? (
+        <main className="content">
+          {data && (
+            <>
+              <p className="headingM">Welcome {username}</p>
+
+              {data["Customer_ID"] ? (
+                <>
+                  <UserProfile data={data} />
+                  <Button
+                    colorScheme="blue"
+                    margin="4"
+                    width="5rem"
+                    onClick={onOpen}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    colorScheme="blue"
+                    width="5rem"
+                    margin="4"
+                    onClick={handleDelete}
+                  >
+                    Delete
+                  </Button>
+                </>
+              ) : (
+                <div>
+                  <h1 className="headingL">Form</h1>
+                  <LoanUserForm
+                    formData={formData}
+                    handleInputChange={handleInputChange}
+                    handleSubmit={handleSubmit}
+                    isUpdate={false}
+                  />
+                </div>
+              )}
+            </>
+          )}
           <>
-            <p className="headingM">Welcome {username}</p>
+            <Modal isOpen={isOpen} onClose={onClose}>
+              <ModalOverlay />
+              <ModalContent>
+                <ModalHeader>Edit Data</ModalHeader>
+                <ModalCloseButton />
+                <ModalBody>
+                  <LoanUserForm
+                    formData={formData}
+                    handleInputChange={handleInputChange}
+                    handleSubmit={handleSubmit}
+                    isUpdate={true}
+                    onClose={onClose}
+                  />
+                </ModalBody>
 
-            {data["Customer_ID"] ? (
-              <>
-                <UserProfile data={data} />
-                <Button
-                  colorScheme="blue"
-                  margin="4"
-                  width="5rem"
-                  onClick={onOpen}
-                >
-                  Edit
-                </Button>
-                <Button
-                  colorScheme="blue"
-                  width="5rem"
-                  margin="4"
-                  onClick={handleDelete}
-                >
-                  Delete
-                </Button>
-              </>
-            ) : (
-              <div>
-                <h1 className="headingL">Form</h1>
-                <LoanUserForm
-                  formData={formData}
-                  handleInputChange={handleInputChange}
-                  handleSubmit={handleSubmit}
-                  isUpdate={false}
-                />
-              </div>
-            )}
+                <ModalFooter></ModalFooter>
+              </ModalContent>
+            </Modal>
           </>
-        )}
-        <>
-          <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Edit Data</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <LoanUserForm
-                  formData={formData}
-                  handleInputChange={handleInputChange}
-                  handleSubmit={handleSubmit}
-                  isUpdate={true}
-                  onClose={onClose}
-                />
-              </ModalBody>
-
-              <ModalFooter></ModalFooter>
-            </ModalContent>
-          </Modal>
-        </>
-      </main>
+        </main>
+      ) : (
+        <h1 className="headingL">Please Login First</h1>
+      )}
     </>
   );
 };

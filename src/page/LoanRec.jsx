@@ -34,6 +34,8 @@ import DietPlanDisplay from "../components/LoanRec/DietPlanDisplay";
 import LoanForm from "../components/LoanRec/LoanForm";
 import LoanResult from "../components/LoanRec/LoanResult";
 import LoanBenefit from "../components/LoanRec/LoanBenefit";
+import config from "../../config";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const getRandomItem = (array) => {
   const randomIndex = Math.floor(Math.random() * array.length);
@@ -41,9 +43,11 @@ const getRandomItem = (array) => {
 };
 
 const LoanRec = () => {
+  const { user } = useAuthContext();
   const { data, username, postLoanRecommendation } = useContent();
-  const { data: dataDiet, dataDietRec } = useDiet();
+  const { data: dataDiet, dataDietRec, postCalorie } = useDiet();
   const { data: dataGym } = useGym();
+  const [calorie, setCalorie] = useState();
 
   const randomClass = dataGym ? getRandomItem(dataGym) : null;
   const randomDiet = dataDietRec["diet_recommendation"]
@@ -62,11 +66,17 @@ const LoanRec = () => {
     }));
   };
 
-  console.log(dataDietRec);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     const result = await postLoanRecommendation(loanData);
+    const { name, ...formData } = dataDiet;
+    console.log(formData);
+    const resultCalorie = await postCalorie(
+      config.dietApiUrl + "calculate-calories/" + username,
+      formData
+    );
+
     setLoanRec(result["data"]);
     if (result.success) {
       console.log("Loan recommendation submitted successfully:", result.data);
@@ -76,52 +86,61 @@ const LoanRec = () => {
   };
 
   return (
-    <div>
-      <p className="headingM">Welcome {username}</p>
+    <>
+      {user ? (
+        <div>
+          <p className="headingM">Welcome {username}</p>
 
-      {data["Customer_ID"] && dataDiet["user_id"] ? (
-        <LoanForm
-          loanData={loanData}
-          handleInputChange={handleInputChange}
-          handleSubmit={handleSubmit}
-          data={data}
-          dataDiet={dataDiet}
-        />
-      ) : (
-        <>
-          <h1 className="headingL">
-            Please complete your data information initially
-          </h1>
-          <a href="/">
-            <Button colorScheme="blue" margin="4">
-              Navigate to home
-            </Button>
-          </a>
-          <a href="/diet">
-            <Button colorScheme="blue" margin="4">
-              Navigate to diet
-            </Button>
-          </a>
-        </>
-      )}
-      {loanRec && (
-        <div className="loan-detail">
-          <Card>
-            <CardHeader>
-              <Heading size="xl">Loan Recommendation</Heading>
-            </CardHeader>
+          {data["Customer_ID"] && dataDiet["user_id"] ? (
+            <LoanForm
+              loanData={loanData}
+              handleInputChange={handleInputChange}
+              handleSubmit={handleSubmit}
+              data={data}
+              dataDiet={dataDiet}
+            />
+          ) : (
+            <>
+              <h1 className="headingL">
+                Please complete your data information initially
+              </h1>
+              <a href="/">
+                <Button colorScheme="blue" margin="4">
+                  Navigate to home
+                </Button>
+              </a>
+              <a href="/diet">
+                <Button colorScheme="blue" margin="4">
+                  Navigate to diet
+                </Button>
+              </a>
+            </>
+          )}
+          {loanRec && (
+            <div className="loan-detail">
+              <Card>
+                <CardHeader>
+                  <Heading size="xl">Loan Recommendation</Heading>
+                </CardHeader>
 
-            <CardBody>
-              <SimpleGrid columns={2} spacing="4">
-                <LoanResult loanRec={loanRec} dataDiet={dataDiet} />
-                <LoanBenefit dataDiet={dataDiet} randomClass={randomClass} />
-              </SimpleGrid>
-            </CardBody>
-          </Card>
-          <DietPlanDisplay username={username} randomDiet={randomDiet} />
+                <CardBody>
+                  <SimpleGrid columns={2} spacing="4">
+                    <LoanResult loanRec={loanRec} dataDiet={dataDiet} />
+                    <LoanBenefit
+                      dataDiet={dataDiet}
+                      randomClass={randomClass}
+                    />
+                  </SimpleGrid>
+                </CardBody>
+              </Card>
+              <DietPlanDisplay username={username} randomDiet={randomDiet} />
+            </div>
+          )}
         </div>
+      ) : (
+        <h1 className="headingL">Please login first</h1>
       )}
-    </div>
+    </>
   );
 };
 

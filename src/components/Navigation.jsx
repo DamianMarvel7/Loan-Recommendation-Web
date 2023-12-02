@@ -2,10 +2,12 @@ import { useContext } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import { Button } from "@chakra-ui/react";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const Navigation = () => {
   const { logout } = useLogout();
   const location = useLocation();
+  const { user } = useAuthContext();
 
   const handleNavIconClick = (selectedNav) => {
     setSelectedNav(selectedNav);
@@ -48,9 +50,15 @@ const Navigation = () => {
             </NavLink>
           </li>
           <li>
-            <Button colorScheme="blue" onClick={handleClick}>
-              Logout
-            </Button>
+            {user ? (
+              <Button colorScheme="blue" onClick={handleClick}>
+                Logout
+              </Button>
+            ) : (
+              <Button colorScheme="blue">
+                <NavLink to="/login">Login</NavLink>
+              </Button>
+            )}
           </li>
         </ul>
       </nav>
