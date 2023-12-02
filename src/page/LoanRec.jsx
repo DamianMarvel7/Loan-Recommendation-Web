@@ -138,7 +138,7 @@ const LoanRec = () => {
           )}
         </div>
       ) : (
-        <h1 className="headingL">Please login first</h1>
+        <h1 className="headingL loginmsg">Please Login First</h1>
       )}
     </>
   );

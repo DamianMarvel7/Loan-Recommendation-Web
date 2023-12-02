@@ -150,3 +150,7 @@ form {
 .detail-value {
   margin-bottom: 15px;
 }
+
+.loginmsg {
+  text-align: center;
+}

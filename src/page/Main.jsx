@@ -166,7 +166,7 @@ const Content = () => {
           </>
         </main>
       ) : (
-        <h1 className="headingL">Please Login First</h1>
+        <h1 className="headingL loginmsg">Please Login First</h1>
       )}
     </>
   );
