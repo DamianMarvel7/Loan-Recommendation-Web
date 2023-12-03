@@ -31,7 +31,7 @@ export const useSignup = () => {
         axios.post(gymAPIURL, {
           username: username,
           password: password,
-          role: "user",
+          role: "customer",
         }),
       ]);
 
