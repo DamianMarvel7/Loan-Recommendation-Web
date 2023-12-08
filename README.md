@@ -1,18 +1,15 @@
 # Loan Recommendation Website
 
-Link website: https://loanrecommendation.netlify.app/
-</br>
-Berikut merupakan keterangan dari 4 page utama diatas
-Home Page
-Berisikan tentang form mengenai data user seperti jenis kelamin, status pernikahan, dependensi, edukasi, penghasilan, dan area properti. Setelah pengguna mengisi form tersebut, data tersebut akan ditunjukkan di tabel biodata. Pengguna juga dapat mengedit data dan menghapus data tersebut.
-Diet Page
-Berisikan tentang form mengenai data diet user seperti nama, berat, tinggi, umur, jenis kelamin, level aktivitas, dan tujuan diet. Setelah pengguna mengisi form tersebut, data tersebut akan ditunjukkan di tabel biodata. Pengguna juga dapat mengedit data dan menghapus data tersebut.
-Gym Page
-Berisikan tentang kelas yang tersedia dengan keterangan waktu kelas dimulai dan berakhir, serta tipe kelas.
-Loan Form Page
-Setelah pengguna sudah mengisi form di Home Page dan Diet Page, pengguna dapat mengakses fungsionalitas utama yaitu rekomendasi pinjaman. Pengguna perlu mengisi jumlah pinjaman serta tenor pinjaman. Setelah itu, pengguna akan direkomendasikan jenis pinjaman yang sesuai dengan tujuan badan pengguna.
-Berikut merupakan hasil rekomendasi yang didapat:
-Rekomendasi jenis pinjaman seperti Maintenance Loan, Weight Loss Loan, Muscle Gain Loan.
-Memprediksi kemungkinan akan default apabila meminjam dengan jumlah dan tenor tersebut, lalu merekomendasikan jumlah pinjaman tenor, dan interest rate yang sebaiknya diambil.
-Mendapat complementary kelas virtual gym gratis dan dapat dikirim lewat email.
-Mendapat kalkulasi dari diet plan yang dibutuhkan pengguna seperti berapa kalori, protein, karbohidrat, fat, dan fiber yang dibutuhkan per harinya.
+## Home Page
+The Home Page contains a form for user data, including gender, marital status, dependents, education, income, and property area. After users fill out the form, the data is displayed in a biodata table. Users can also edit and delete the data.
+
+## Diet Page
+The Diet Page contains a form for user diet data, including name, weight, height, age, gender, activity level, and diet goal. After users fill out the form, the data is displayed in a biodata table. Users can also edit and delete the data.
+
+## Gym Page
+The Gym Page displays available classes with information on class start and end times, as well as class types.
+
+## Loan Form Page
+After users have filled out the forms on the Home Page and Diet Page, they can access the main functionality, which is loan recommendation. Users need to enter the loan amount and loan tenure. After that, users will be recommended suitable loan types based on their goals. Recommendations include loan types like Maintenance Loan, Weight Loss Loan, and Muscle Gain Loan. It also predicts the likelihood of default for the specified loan amount and tenure, recommends loan amounts, tenure, and interest rates. Users receive complimentary virtual gym classes via email. Additionally, users receive a calculation of their daily dietary requirements, including calories, protein, carbohydrates, fat, and fiber.
+
+[Visit the website here](https://loanrecommendation.netlify.app/)
