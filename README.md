@@ -1,6 +1,7 @@
 # Loan Recommendation Website
 
 Link website: https://loanrecommendation.netlify.app/
+</br>
 Berikut merupakan keterangan dari 4 page utama diatas
 Home Page
 Berisikan tentang form mengenai data user seperti jenis kelamin, status pernikahan, dependensi, edukasi, penghasilan, dan area properti. Setelah pengguna mengisi form tersebut, data tersebut akan ditunjukkan di tabel biodata. Pengguna juga dapat mengedit data dan menghapus data tersebut.
